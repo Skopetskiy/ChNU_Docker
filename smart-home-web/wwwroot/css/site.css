@@ -1,0 +1,87 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+#invalidSensorTable tbody a{
+    color:black;
+}
+
+#invalidSensorTable a:hover {
+    color:blue;
+    text-decoration: none;
+}
+
+a.disabledclass {
+    /* Make the disabled links grayish*/
+    color: gray;
+    /* And disable the pointer events */
+    pointer-events: none;
+    cursor:not-allowed;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.graph-label {
+    color: #333333;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 40px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.graph-title {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: center;
+    margin-top:10px;
+    display: block;
+}
+
+/*.increase-padding {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}*/
+
+.report-button{
+    color: #111111;
+}
+
+    .report-button:hover {
+        color: dimgrey;
+        cursor: pointer;
+        -webkit-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+
+.modal-backdrop.in {
+    opacity: 0.3 !important;
+}

@@ -1,0 +1,100 @@
+﻿@using smart_home_web.Models;
+@model RegisterViewModel;
+
+
+
+@{
+    Layout = "_AccountLayout";
+
+    ViewData["Title"] = "Register";
+}
+
+<section class="login_part padding_top">
+    <div class="h-100">
+        <div class="h-100 no-gutters row">
+            <div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7">
+                <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+                    <div class="app-logo"></div>
+                    <h4>
+                        <div>Welcome,</div>
+                        <span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
+                    </h4>
+                    <div>
+                        <form method="post">
+                            <div class="form-row" asp-validation-summary="All">
+                                <div class="col-md-12">
+                                    <div class="position-relative form-group">
+                                        <label for="exampleEmail" class="">
+                                            <span class="text-danger">
+                                                *
+                                            </span>
+                                            Email
+                                        </label>
+                                        <input id="exampleEmail" type="email" asp-for="Email" class="form-control" value="" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group">
+                                        <label for="exampleName" class="">
+                                            First Name
+                                        </label>
+                                        <input asp-for="FirstName" class="form-control" placeholder="LastName" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group">
+                                        <label for="exampleName" class="">
+                                            Last Name
+                                        </label>
+                                        <input asp-for="LastName" class="form-control" placeholder="LastName" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group">
+                                        <label for="examplePassword" class="">
+                                            <span class="text-danger">
+                                                *
+                                            </span> Password
+                                        </label>
+                                        <input asp-for="Password" class="form-control" value="" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="position-relative form-group">
+                                        <label for="examplePasswordRep" class="">
+                                            <span class="text-danger">
+                                                *
+                                            </span> Repeat Password
+                                        </label>
+                                        <input asp-for="ConfirmPassword" class="form-control" value="" placeholder="Confirm password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 d-flex align-items-center">
+                                <h5 class="mb-0">Already have an account? <a class="text-primary" asp-controller="Account" asp-action="Login">Sign up</a></h5>
+                                <div class="ml-auto form-group">
+                                    <button type="submit" value="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Create Account</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="d-lg-flex d-xs-none col-lg-5">
+                <div class="slider-light">
+                    <div class="slick-slider slick-initialized">
+                        <div>
+                            <div class="h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
+                                <div class="slide-img-bg" style="background-image: url('assets/images/originals/citynights.jpg');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+

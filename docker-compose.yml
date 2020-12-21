@@ -1,0 +1,26 @@
+version: "3.6"
+services: 
+  dot-net-mysql-db: 
+    container_name: testsql
+    environment: 
+      MYSQL_DATABASE: testdb
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: user
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    image: "mysql:latest"
+    ports: 
+      - 3306:3306
+    restart: always
+    volumes: 
+      - "mysqldbdata:/var/lib/mysql"
+  smart_home: 
+    build: "."
+    container_name: smart_home
+    depends_on: 
+      - dot-net-mysql-db
+    ports: 
+      - "8000:80"
+    restart: on-failure
+volumes:
+  mysqldbdata:

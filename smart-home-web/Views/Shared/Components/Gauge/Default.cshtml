@@ -1,0 +1,167 @@
+﻿@using smart_home_web.Models.ReportElements;
+@using Domain.Core.Model.Enums;
+@model GaugeViewModel;
+
+    <div>
+        @if (Model.IsValid)
+        {
+            <figure id=@("gauge_figure_" + Model.Id.ToString()) class="highcharts-figure">
+                <div id=@("Gauge" + Model.Id.ToString()) class="chart-container" data-save-sensorid="@Model.SensorId"></div>
+            </figure>
+        }
+        else
+        {   
+            <label id=@("alertMessage" + Model.Id.ToString()) class="control-label graph-label">There is no gauge for the selected sensor for the chosen time period.</label>
+        }
+    </div>
+
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script type="text/javascript">
+    
+    $(function () {  
+        $("form").on("submit", function (e) {
+            e.preventDefault(); 
+            var gaugeViewModel = new Object();  
+            gaugeViewModel.Id = $('#id').val();  
+            gaugeViewModel.Hours = $('#hours').val();   
+            if (gaugeViewModel != null) {  
+                $.ajax({
+                    type: "PUT",  
+                    url: '@Url.Action("UpdateGaugeHours", "Gauge")',  
+                    data: JSON.stringify(gaugeViewModel),  
+                    contentType: "application/json; charset=utf-8",  
+                    dataType: "json",  
+                    success: function(response) {  
+                        if (response != null) {
+                            alert(response.responseText);  
+                        } else {  
+                            alert("Something went wrong");  
+                        }  
+                    },  
+                    failure: function(response) {  
+                        alert(response.responseText);  
+                    },  
+                    error: function(response) {  
+                        alert(response.responseText);  
+                    }  
+                });  
+            }  
+        });  
+    });
+
+</script>
+
+<script>
+    var gaugeOptions = {
+        chart: {
+            type: 'solidgauge',
+            height: '75%',
+        },
+
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+
+        exporting: {
+            enabled: false
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            tickWidth: 0,
+            minorTickInterval: null,
+            startOnTick: false,
+            tickAmount: 2,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    var gaugeChart = Highcharts.chart('Gauge'+JSON.parse('@Html.Raw(Json.Serialize(@Model.Id.ToString()))'), Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: @Model.Min,
+            max: @Model.Max,
+            tickPositions: [@Model.Min, @Model.Max],
+            labels: {
+                distance: '80%',
+                y: 20,
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '16px'
+                }
+            }
+        },
+
+        title: {
+                text: 'Gauge for ' + @Html.Raw(Json.Serialize(Model.SensorName)) + ' for time period of ' +  '@Html.DisplayFor(model => model.Hours)'
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+            name: '@Model.SensorName',
+            data: [@Model.Value],
+            dataLabels: {
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}</span><br/>' +
+                    '<span style="font-size:12px;opacity:0.4">@Model.MeasurementName</span>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: ' @Model.MeasurementName'
+            }
+        }]
+
+    }));
+
+    $('body').on('gsresizestop', '.grid-stack', function (event, ui) {
+        var type = 'Gauge';
+        try {
+            var result = Highcharts.charts.find(chart => chart.renderTo.id == (type + ui.id).toString());
+        }
+        catch (error) {
+
+        }
+        if (typeof result !== 'undefined') {
+            result.setSize(ui.height, ui.width);
+        }
+        
+    });
+</script>

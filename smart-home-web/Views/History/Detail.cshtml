@@ -1,0 +1,43 @@
+﻿@using smart_home_web.Models.History;
+@using Infrastructure.Business.DTOs;
+@using Domain.Core.Model.Enums;
+@using Microsoft.EntityFrameworkCore.Infrastructure
+
+@model AllHistoriesViewModel;
+
+@{
+    Layout = "_HistoryLayout";
+}
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<div class="app-main">
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <div class="app-header header-button-move-up">
+                <div class="page-title-heading">
+                    <b>@Model.Histories.First().SensorName</b>
+                    <div class="page-title-subheading opacity-10">
+                        <a class="mb-2 mr-2 btn-icon btn-icon btn-square btn btn-primary"
+                           asp-action="Graph"
+                           asp-route-sensorId="@Model.Histories.First().SensorId"
+                           asp-route-days="99999">
+                            <i class="pe-7s-graph1 btn-icon-wrapper"></i>
+                            Graph
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("History", Model)
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>

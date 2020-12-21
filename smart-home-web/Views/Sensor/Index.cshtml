@@ -1,0 +1,74 @@
+﻿@using smart_home_web.Models.SensorViewModel;
+
+@model IEnumerable<SensorViewModel>
+
+@{
+    ViewData["Title"] = "Sensors";
+}
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<div class="app-main">
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <div class="app-header header-button-move-up">
+                <div class="page-title-heading">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="button-center">
+                            <a class="mb-2 mr-2 btn btn-primary text-white element-create"
+                               onclick="ElementCreate()">
+                                Add new sensor
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="app-inner-layout app-inner-layout-page">
+                <div class="app-inner-layout__wrapper">
+                    <div class="app-inner-layout__content" style="padding-top: 0px">
+                        <div class="tab-content">
+                            <div class="container-fluid">
+                                <div class="main-card mb-3 card" data-save-url="@Url.Action("SetActive", "Sensor")">
+                                    <ul class="list-group list-group-flush all-elements-container">
+
+                                        @foreach (var item in Model)
+                                        {
+                                            @await Component.InvokeAsync("SensorElement", item)
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@await Component.InvokeAsync("Modals", "Sensor")
+
+
+
+<script>
+    $(function () {
+
+        var SetActiveAjax = function () {
+            let input = $(this);
+            $.ajax({
+                type: 'Post',
+                url: "/Sensor/SetActive",
+                data: { id: input.attr('id') },
+            });
+        }
+        var ToggleShadow = function () {
+            console.log(this);
+            $(this).toggleClass("toggle-shadow");
+        }
+
+        $(".input-set-active").on("click", SetActiveAjax);
+
+        $(".input-set-active").on("click", ToggleShadow);
+    });
+</script>

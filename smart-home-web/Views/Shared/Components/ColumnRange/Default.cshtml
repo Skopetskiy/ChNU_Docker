@@ -1,0 +1,110 @@
+﻿@model smart_home_web.Models.ReportElements.ReportElementViewModel;
+@using Domain.Core.Model.Enums
+@if (Model.IsCorrect)
+{
+    <figure class="highcharts-figure">
+        <div id="@("Columnrange"+Model.Id.ToString())"></div>
+    </figure>
+}
+else
+{
+    <label class="control-label graph-label text-center">@Model.Message <a class="btn btn-success text-center" asp-controller="ReportElement" asp-action="EditReportElement" asp-route-id="@Model.Id"><i class="fas fa-cog"></i></a></label>
+}
+
+<script>
+    minValues = JSON.parse('@Html.Raw(Json.Serialize(@Model.MinValues))');
+    maxValues = JSON.parse('@Html.Raw(Json.Serialize(@Model.MaxValues))');
+    dates = JSON.parse('@Html.Raw(Json.Serialize(@Model.Dates))');
+    values = [];
+    for (let i = 0; i < dates.length;i++) {
+        values.push([minValues[i],maxValues[i]])
+    }
+    Highcharts.chart('Columnrange'+JSON.parse('@Html.Raw(Json.Serialize(@Model.Id.ToString()))'), {
+
+        chart: {
+            type: 'columnrange',
+            inverted: true,
+        },
+        title: {
+            text: 'Column range for <b>' + JSON.parse('@Html.Raw(Json.Serialize(@Model.SensorName))') + '</b>'
+        },
+
+        xAxis: {
+            title: {
+                style: {
+                    textTransform: 'uppercase'
+                },
+                text:
+                @if((int)Model.Hours == 1)
+                {
+                    <text> '<b>Minutes</b>' </text>
+                } else if((int)Model.Hours > 1 && (int)Model.Hours <= 24)
+                {
+                    <text> '<b>Hours</b>' </text>
+                }
+                else
+                {
+                    <text> '<b>Days</b>' </text>
+                }
+            },
+            categories: dates
+        },
+
+        yAxis: {
+            minorTickInterval: 'auto',
+            title: {
+                style: {
+                    textTransform: 'uppercase'
+                },
+                text: '<b>values</b>'
+            },
+            labels: {
+                style: {
+                    fontSize: '12px'
+                }
+            }
+        },
+        plotOptions: {
+            columnrange: {
+                dataLabels: {
+                    enabled: true
+                }
+            },
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Values',
+            data: values
+        }],
+        exporting: {
+            buttons: {
+                contextButton: {
+                    enabled: false,
+                },
+            }
+        },
+
+    });
+
+    delete minValues;
+    delete maxValues;
+    delete values;
+    delete dates;
+
+    $('body').on('gsresizestop', '.grid-stack', function (event, ui) {
+        var type = 'Columnrange';
+        try {
+            var result = Highcharts.charts.find(chart => chart.renderTo.id == (type + ui.id).toString());
+        }
+        catch (error) {
+
+        }
+        if (typeof result !== 'undefined') {
+            result.setSize(ui.height, ui.width);
+        }
+    });
+</script>

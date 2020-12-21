@@ -1,0 +1,107 @@
+﻿@using Infrastructure.Business.DTOs;
+@using Domain.Core.Model.Enums;
+
+@model smart_home_web.Models.History.AllHistoriesViewModel;
+@{
+    ViewData["Title"] = "Invalid sensors";
+}
+
+<body class="body-content">
+    <div class="d-flex flex-column align-items-center">
+        <table class="table table-hover text-center" id="invalidSensorTable">
+
+            <thead class="text-center">
+                <tr>
+                    <th scope="col" class=" text-center">
+                        @{
+                            var sensor = (FilterDto)Model.FilterDto.Clone();
+                            sensor.sortState = (sensor.sortState == SortState.SensorAsc) ? SortState.SensorDesc : SortState.SensorAsc;
+                        }
+                        <a href="@Url.Action("InvalidSensors", sensor)">
+                            Sensor <i class="glyphicon glyphicon-sort"></i>
+                        </a>
+
+                    </th>
+
+                    <th scope="col" class=" text-center">
+                        @{
+                            var date = (FilterDto)Model.FilterDto.Clone();
+                            date.sortState = (date.sortState == SortState.DateAsc) ? SortState.DateDesc : SortState.DateAsc;
+                        }
+                        <a href="@Url.Action("InvalidSensors", date)">
+                            Date <i class="glyphicon glyphicon-sort"></i>
+                        </a>
+
+                    </th>
+
+                    <th scope="col" class=" text-center">Value</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @if (!Model.Histories.Any())
+                {
+                    <tr>
+                        <td colspan="3">No invalid sensors</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var history in Model.Histories)
+                    {
+                        <tr>
+                            <td scope="row">
+                                <a asp-controller="History" asp-action="Detail"
+                                   asp-route-sensorId="@history.SensorId"
+                                   asp-route-page="@Model.FilterDto.CurrentPage"
+                                   style="display: block;">
+                                    @history.SensorId
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="History" asp-action="Detail" asp-route-sensorId="@history.SensorId" style="display: block;">
+                                    @history.Date.DateTime.ToLocalTime()
+                                </a>
+                            </td>
+                            @{
+                                if (history.Value.ToString() == "False")
+                                {
+                                    <td>
+                                        <a asp-controller="History" asp-action="Detail" asp-route-sensorId="@history.SensorId"
+                                           style="display: block;">
+                                            Inactive
+                                        </a>
+                                    </td>
+                                }
+                                else if (history.Value.ToString() == "True")
+                                {
+                                    <td>
+                                        <a asp-controller="History" asp-action="Detail" asp-route-sensorId="@history.SensorId"
+                                           style="display: block;">
+                                            Active
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a asp-controller="History" asp-action="Detail" asp-route-sensorId="@history.SensorId"
+                                           style="display: block;">
+                                            @history.Value
+                                        </a>
+                                    </td>
+                                }
+                            }
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+        <br />
+        @await Component.InvokeAsync("Pagination", new { action = "InvalidSensors", controller = "History", filterDto = Model.FilterDto })
+    </div>
+
+</body>
+
+

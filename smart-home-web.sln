@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smart-home-web", "smart-home-web\smart-home-web.csproj", "{7D4AA702-5E16-4192-89F5-CAA5D86ED940}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "Domain.Core\Domain.Core.csproj", "{20C73260-1792-404A-951F-DCC204B22A1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Interfaces", "Domain.Interfaces\Domain.Interfaces.csproj", "{8208044D-C3B5-4465-B190-A6040DB2DC6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data", "Infrastructure.Data\Infrastructure.Data.csproj", "{9FCA2582-E4E6-4010-AB39-64031F6197AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Business", "Infrastructure.Business\Infrastructure.Business.csproj", "{6EE4338D-E0C1-43DA-A5CC-27134A4CC296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smart-home-web.Tests", "smart-home-web.Tests\smart-home-web.Tests.csproj", "{D1AB02BF-16E6-4DDE-A289-5DEB129CBF70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D4AA702-5E16-4192-89F5-CAA5D86ED940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D4AA702-5E16-4192-89F5-CAA5D86ED940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D4AA702-5E16-4192-89F5-CAA5D86ED940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D4AA702-5E16-4192-89F5-CAA5D86ED940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20C73260-1792-404A-951F-DCC204B22A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C73260-1792-404A-951F-DCC204B22A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C73260-1792-404A-951F-DCC204B22A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C73260-1792-404A-951F-DCC204B22A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8208044D-C3B5-4465-B190-A6040DB2DC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8208044D-C3B5-4465-B190-A6040DB2DC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8208044D-C3B5-4465-B190-A6040DB2DC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8208044D-C3B5-4465-B190-A6040DB2DC6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FCA2582-E4E6-4010-AB39-64031F6197AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FCA2582-E4E6-4010-AB39-64031F6197AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FCA2582-E4E6-4010-AB39-64031F6197AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FCA2582-E4E6-4010-AB39-64031F6197AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE4338D-E0C1-43DA-A5CC-27134A4CC296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE4338D-E0C1-43DA-A5CC-27134A4CC296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE4338D-E0C1-43DA-A5CC-27134A4CC296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE4338D-E0C1-43DA-A5CC-27134A4CC296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1AB02BF-16E6-4DDE-A289-5DEB129CBF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1AB02BF-16E6-4DDE-A289-5DEB129CBF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1AB02BF-16E6-4DDE-A289-5DEB129CBF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1AB02BF-16E6-4DDE-A289-5DEB129CBF70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41FD9697-93C9-40DD-AB86-B58927567971}
+	EndGlobalSection
+EndGlobal

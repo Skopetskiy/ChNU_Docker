@@ -1,0 +1,89 @@
+﻿@using smart_home_web.Models.History;
+@using Infrastructure.Business.DTOs;
+@using Domain.Core.Model.Enums;
+
+
+@model AllHistoriesViewModel;
+
+@{
+    Layout = "_HistoryLayout";
+
+    ViewData["Title"] = "Histories";
+}
+
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<div class="app-main">
+    <div class="app-main__outer">
+        <div class="app-main__inner">
+            <div class="app-header header-button-move-up">
+                <div class="page-title-heading">
+                    All Histories
+                    <div class="page-title-subheading opacity-10 ml-4">
+                        <label class="checkbox-inline text-center">
+                            <input id="checkboxInvalidSensors" type="checkbox"
+                                   data-toggle="toggle" data-off="Valid Sensors" data-on="Invalid Sensors">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("History", Model)
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+
+<script>
+    let isActivated = true;
+    $(document).ready(function () {
+        $("#checkboxInvalidSensors").change(function () {
+            $("#checkboxInvalidSensors").attr('disabled', true);
+
+            $.ajax({
+                url:"@Url.Action("UpdateHistoryTable", "History")",
+                data: {
+                    FilterDTO: JSON.parse('@Html.Raw(Json.Serialize(@Model.FilterDto))'),
+                    isActivated: !($(this).prop('checked'))
+                },
+                error: function (res) {
+                    console.log(res);
+                },
+                success: function (data) {
+                    $(".history-table").replaceWith(data);
+                    console.log(data);
+                },
+                complete: function () {
+                    $("#checkboxInvalidSensors").attr('disabled', false);
+
+                }
+            });
+        });
+    });
+
+    $(function () {
+
+        var SetActiveAjax = function () {
+            let input = $(this);
+            $.ajax({
+                type: 'Post',
+                url: "/Sensor/SetActive",
+                data: { id: input.attr('id') },
+            });
+        }
+        $(".input-set-active").on("click", SetActiveAjax);
+
+        $(".input-set-active").on("click", function () {
+            console.log(this);
+            $(this).toggleClass("toggle-shadow");
+        });
+    });
+
+
+</script>
+
